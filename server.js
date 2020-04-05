@@ -28,11 +28,36 @@ app.get('/location', (request, response) => {
         errorHandler(error, request, response);
     }
 
-    // app.get('/location',(request,response)=>{
-
-    // }
 });
+
+
+app.get('/weather', (request, response) => {
+
+    try {
+        const darkSkyData = require('./data/darksky.json');
+        console.log(darkSkyData.data[0].length);
+
+        darkSkyData.data.forEach((element) => {
+            new Weather(element)
+        })
+        response.status(200).json(Weather.all);
+    } catch (error) {
+        errorHandler(error, request, response);
+    }
+
+});
+
 app.use('*', notFoundHandler);
+
+Weather.all = [];
+
+function Weather(element) {
+
+    this.forecast = element.weather.description;
+    this.time = new Date(element.valid_date);
+    Weather.all.push(this);
+
+}
 
 function Location(city, geoData) {
     this.search_query = city;
