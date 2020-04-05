@@ -31,6 +31,7 @@ app.get('/location', (request, response) => {
 });
 
 
+
 app.get('/weather', (request, response) => {
 
     try {
@@ -54,7 +55,7 @@ Weather.all = [];
 function Weather(element) {
 
     this.forecast = element.weather.description;
-    this.time = new Date(element.valid_date);
+    this.time = element.valid_date;
     Weather.all.push(this);
 
 }
