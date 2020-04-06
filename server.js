@@ -37,7 +37,6 @@ app.get('/weather', (request, response) => {
     try {
         const darkSkyData = require('./data/darksky.json');
         // console.log(darkSkyData.data[0].length);
-
         darkSkyData.data.forEach((element) => {
             new Weather(element)
         })
@@ -72,7 +71,7 @@ function notFoundHandler(request, response) {
 }
 
 function errorHandler(error, request, response) {
-    response.status(500).send(error);
+    response.status(500).send({ 'Status': "500", "responseText": 'sorry something went wrong' });
 }
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`the server is up and running on ${PORT}`));
