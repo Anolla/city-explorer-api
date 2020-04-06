@@ -36,7 +36,7 @@ app.get('/weather', (request, response) => {
 
     try {
         const darkSkyData = require('./data/darksky.json');
-        console.log(darkSkyData.data[0].length);
+        // console.log(darkSkyData.data[0].length);
 
         darkSkyData.data.forEach((element) => {
             new Weather(element)
@@ -55,7 +55,7 @@ Weather.all = [];
 function Weather(element) {
 
     this.forecast = element.weather.description;
-    this.time = element.valid_date;
+    this.time = new Date(element.valid_date).toString().slice(0, 15);
     Weather.all.push(this);
 
 }
